@@ -1,171 +1,263 @@
 import React, { Component } from 'react';
 import './GradientPicker.css';
-import dice from '../../images/dice.png';
-import eyes from '../../images/close-eyes.png';
+import random from '../../images/random.png';
+import hide from '../../images/hide.png';
+import save from '../../images/save.png';
+import html2canvas from 'html2canvas';
+import Slider from '@material-ui/core/Slider';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+
+const RedSlider = withStyles({
+  root: {
+    color: '#fff',
+    height: 8
+  },
+  thumb: {
+    color: ' #bb0000'
+  }
+})(Slider);
+
+const GreenSlider = withStyles({
+  root: {
+    color: '#fff',
+    height: 8
+  },
+  thumb: {
+    color: ' #00bb00'
+  }
+})(Slider);
+
+const BlueSlider = withStyles({
+  root: {
+    color: '#fff',
+    height: 8
+  },
+  thumb: {
+    color: ' #0000bb'
+  }
+})(Slider);
 
 class GradientPicker extends Component {
-	state = {
-		colors: [
-			{ r: randomInt(255), g: randomInt(255), b: randomInt(255) },
-			{ r: randomInt(255), g: randomInt(255), b: randomInt(255) }
-		],
-		rotation: 120,
-		uiOpacity: 1,
-		randomizeButtonColor: 'white'
-	};
+  state = {
+    colors: [
+      { r: 0, g: 0, b: 0 },
+      { r: 0, g: 0, b: 0 }
+    ],
+    initColors: [
+      { r: 0, g: 0, b: 0 },
+      { r: 0, g: 0, b: 0 }
+    ],
+    copiedOpacity: 0,
+    rotation: 120,
+    uiOpacity: 1,
+    randomizeButtonColor: 'white',
+    gradientImage: null
+  };
 
-	getGradient = () => {
-		let colors = '';
-		this.state.colors.forEach(color => {
-			colors += 'rgb(' + color.r + ', ' + color.g + ', ' + color.b + '), ';
-		});
-		colors = colors.substring(0, colors.length - 2);
-		let gradientStyle =
-			'linear-gradient(' + this.state.rotation + 'deg, ' + colors + ')';
-		return { background: gradientStyle };
-	};
+  constructor(props) {
+    super(props);
+    this.imageSave = React.createRef();
+  }
 
-	addColor = () => {
-		let colors = this.state.colors;
-		colors.push({ r: 200, g: 100, b: 202 });
-		this.setState({
-			colors
-		});
-	};
+  componentDidMount() {
+    let colors = [
+      { r: randomInt(255), g: randomInt(255), b: randomInt(255) },
+      { r: randomInt(255), g: randomInt(255), b: randomInt(255) }
+    ];
+    this.setState({ colors: colors, initColors: colors });
+  }
 
-	updateColor = (index, color, event) => {
-		let value = event.target.value;
-		let colors = this.state.colors;
-		colors[index][color] = value;
-		this.setState({ colors });
-	};
+  getGradient = () => {
+    let colors = '';
+    this.state.colors.forEach(color => {
+      colors += 'rgb(' + color.r + ', ' + color.g + ', ' + color.b + '), ';
+    });
+    colors = colors.substring(0, colors.length - 2);
+    let gradientStyle =
+      'linear-gradient(' + this.state.rotation + 'deg, ' + colors + ')';
+    return { background: gradientStyle };
+  };
 
-	updateRotation = event => {
-		let rotation = event.target.value;
-		this.setState({ rotation });
-	};
+  updateColor = (index, color, value) => {
+    // let value = event.target.value;
+    let colors = this.state.colors;
+    colors[index][color] = value;
+    this.setState({ colors });
+  };
 
-	getColorSlider = (index, colorLetter) => {
-		return (
-			<div className="colorSliderRow">
-				<div className={'colorSlider'}>
-					<input
-						type="range"
-						min="0"
-						max="255"
-						value={this.state.colors[index][colorLetter]}
-						onChange={event => this.updateColor(index, colorLetter, event)}
-					></input>
-				</div>
-				<div className={'colorIcon-' + colorLetter + ' colorIcon'}></div>
-				{/* <br /> */}
-			</div>
-		);
-	};
+  updateRotation = event => {
+    let rotation = event.target.value;
+    this.setState({ rotation });
+  };
 
-	getSliderBlock = index => {
-		return (
-			<div className="sliderBlock">
-				{this.getColorSlider(index, 'r')}
-				{this.getColorSlider(index, 'g')}
-				{this.getColorSlider(index, 'b')}
-			</div>
-		);
-	};
+  getColorSlider = (index, colorLetter) => {
+    switch (colorLetter) {
+      case 'r':
+        return (
+          <RedSlider
+            value={this.state.initColors[index][colorLetter]}
+            min={0}
+            max={255}
+            onChange={(_, newValue) => {
+              this.updateColor(index, colorLetter, newValue);
+            }}
+            aria-labelledby="continuous-slider"
+          />
+        );
+      case 'g':
+        return (
+          <GreenSlider
+            value={this.state.initColors[index][colorLetter]}
+            min={0}
+            max={255}
+            onChange={(_, newValue) => {
+              this.updateColor(index, colorLetter, newValue);
+            }}
+            aria-labelledby="continuous-slider"
+          />
+        );
+      case 'b':
+        return (
+          <BlueSlider
+            value={this.state.initColors[index][colorLetter]}
+            min={0}
+            max={255}
+            onChange={(_, newValue) => {
+              this.updateColor(index, colorLetter, newValue);
+            }}
+            aria-labelledby="continuous-slider"
+          />
+        );
+    }
+  };
 
-	// addColorButton = () => {
-	// 	return this.state.colors.length < 5 ? (
-	// 		<button className="addColor roundButton" onClick={this.addColor}>
-	// 			+
-	// 		</button>
-	// 	) : (
-	// 		''
-	// 	);
-	// };
+  getSliderBlock = index => {
+    return (
+      <div className="sliderBlock">
+        {this.getColorSlider(index, 'r')}
+        {this.getColorSlider(index, 'g')}
+        {this.getColorSlider(index, 'b')}
+      </div>
+    );
+  };
 
-	colorSliders = () => {
-		return (
-			<div className="slidersBlockContainer">
-				{this.state.colors.map((color, index) => {
-					return this.getSliderBlock(index);
-				})}
-			</div>
-		);
-	};
+  colorSliders = () => {
+    return (
+      <div className="slidersBlockContainer">
+        {this.state.colors.map((color, index) => {
+          return this.getSliderBlock(index);
+        })}
+      </div>
+    );
+  };
 
-	rotationSlider = () => {
-		return (
-			<input
-				className={'rotationSlider'}
-				type="range"
-				min="90"
-				max="450"
-				value={this.state.rotation}
-				onChange={event => this.updateRotation(event)}
-			></input>
-		);
-	};
+  opacityToggle = () => {
+    return (
+      <button
+        className={'opacityToggle roundButton'}
+        onMouseEnter={() => this.setState({ uiOpacity: 0 })}
+        onMouseLeave={() => this.setState({ uiOpacity: 1 })}
+      >
+        <img src={hide} alt="hide"></img>
+      </button>
+    );
+  };
 
-	opacityToggle = () => {
-		return (
-			<button
-				className={'opacityToggle roundButton'}
-				onMouseEnter={() => this.setState({ uiOpacity: 0 })}
-				onMouseLeave={() => this.setState({ uiOpacity: 1 })}
-			>
-				<img src={eyes} alt="hide"></img>
-			</button>
-		);
-	};
+  saveButton = () => {
+    return (
+      <button
+        className={'roundButton saveButton'}
+        onClick={() => {
+          this.setState({ uiOpacity: 0 });
+          setTimeout(() => this.setState({ uiOpacity: 1 }), 150);
+          setTimeout(() => {
+            html2canvas(document.body).then(function(canvas) {
+              canvas.id = 'canvas';
+              document.getElementById('imageSave').appendChild(canvas);
+              var link = document.createElement('a');
+              link.download = 'awesome-gradient.png';
+              link.href = document.getElementById('canvas').toDataURL();
+              link.click();
+            });
+          }, 100);
+        }}
+      >
+        {' '}
+        <img src={save} alt="hide"></img>
+      </button>
+    );
+  };
 
-	randomizeButton = () => {
-		return (
-			<button
-				style={{ background: this.state.randomizeButtonColor }}
-				className={'randomizeButton roundButton'}
-				onClick={() => {
-					this.setState({
-						colors: [
-							{ r: randomInt(255), g: randomInt(255), b: randomInt(255) },
-							{ r: randomInt(255), g: randomInt(255), b: randomInt(255) }
-						],
-						randomizeButtonColor: 'darkgray'
-					});
-					setTimeout(
-						() =>
-							this.setState({
-								randomizeButtonColor: 'white'
-							}),
-						200
-					);
-				}}
-			>
-				{' '}
-				<img src={dice} alt="randomize"></img>
-			</button>
-		);
-	};
+  randomizeButton = () => {
+    return (
+      <button
+        style={{ background: this.state.randomizeButtonColor }}
+        className={'randomizeButton roundButton'}
+        onClick={() => {
+          this.setState({
+            colors: [
+              { r: randomInt(255), g: randomInt(255), b: randomInt(255) },
+              { r: randomInt(255), g: randomInt(255), b: randomInt(255) }
+            ]
+          });
+        }}
+      >
+        {' '}
+        <img src={random} alt="randomize"></img>
+      </button>
+    );
+  };
 
-	render() {
-		return (
-			<div style={this.getGradient()} className="gradientBackground">
-				<div
-					style={{ opacity: this.state.uiOpacity, transitionDuration: '0.5s' }}
-				>
-					{this.colorSliders()}
-					{this.randomizeButton()}
-					{this.opacityToggle()}
-					{/* {this.rotationSlider()} */}
-					{/* {this.addColorButton()} */}
-				</div>
-			</div>
-		);
-	}
+  cssButton = () => {
+    return (
+      <div>
+        <button
+          onClick={() => {
+            this.setState({ copiedOpacity: 1 });
+            setTimeout(() => this.setState({ copiedOpacity: 0 }), 500);
+            let copyText = document.getElementById('css');
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+          }}
+          className={'randomizeButton roundButton'}
+        >
+          CSS
+        </button>
+        <div className="copied" style={{ opacity: this.state.copiedOpacity }}>
+          Copied!
+        </div>
+      </div>
+    );
+  };
+
+  render() {
+    return (
+      <div style={this.getGradient()} className="gradientBackground">
+        <div
+          style={{
+            opacity: this.state.uiOpacity,
+            transitionDuration: '300ms'
+          }}
+        >
+          <div className="buttons">
+            {this.saveButton()}
+            {this.cssButton()}
+            {this.randomizeButton()}
+            {this.opacityToggle()}
+          </div>
+          {this.colorSliders()}
+        </div>
+        <div id="imageSave" style={{ display: 'none' }}></div>
+        <input id="css" defaultValue={this.getGradient().background}></input>
+      </div>
+    );
+  }
 }
 
 export default GradientPicker;
 
 //return a randnom number from 0-max(inclusive)
 function randomInt(max) {
-	return Math.floor(Math.random() * (max + 1));
+  return Math.floor(Math.random() * (max + 1));
 }
