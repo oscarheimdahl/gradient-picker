@@ -5,7 +5,7 @@ import hide from '../../images/hide.png';
 import save from '../../images/save.png';
 import html2canvas from 'html2canvas';
 import Slider from '@material-ui/core/Slider';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const RedSlider = withStyles({
   root: {
@@ -78,8 +78,12 @@ class GradientPicker extends Component {
     return { background: gradientStyle };
   };
 
-  updateColor = (index, color, value) => {
+  updateColor = (index, color, value, allColors) => {
     // let value = event.target.value;
+    if (allColors) {
+      this.setState({ colors: allColors, initColors: allColors });
+      return;
+    }
     let colors = this.state.colors;
     colors[index][color] = value;
     this.setState({ colors: colors, initColors: colors });
@@ -89,6 +93,8 @@ class GradientPicker extends Component {
     let rotation = event.target.value;
     this.setState({ rotation });
   };
+
+  handleSliderChange = () => {};
 
   getColorSlider = (index, colorLetter) => {
     switch (colorLetter) {
@@ -116,7 +122,7 @@ class GradientPicker extends Component {
             aria-labelledby="continuous-slider"
           />
         );
-      case 'b':
+      default:
         return (
           <BlueSlider
             value={this.state.initColors[index][colorLetter]}
@@ -133,7 +139,7 @@ class GradientPicker extends Component {
 
   getSliderBlock = index => {
     return (
-      <div className="sliderBlock">
+      <div key={index} className="sliderBlock">
         {this.getColorSlider(index, 'r')}
         {this.getColorSlider(index, 'g')}
         {this.getColorSlider(index, 'b')}
@@ -194,12 +200,14 @@ class GradientPicker extends Component {
         style={{ background: this.state.randomizeButtonColor }}
         className={'randomizeButton roundButton'}
         onClick={() => {
+          let allColors = [
+            { r: randomInt(255), g: randomInt(255), b: randomInt(255) },
+            { r: randomInt(255), g: randomInt(255), b: randomInt(255) }
+          ];
           this.setState({
-            colors: [
-              { r: randomInt(255), g: randomInt(255), b: randomInt(255) },
-              { r: randomInt(255), g: randomInt(255), b: randomInt(255) }
-            ]
+            allColors
           });
+          this.updateColor(null, null, null, allColors);
         }}
       >
         {' '}
@@ -232,8 +240,10 @@ class GradientPicker extends Component {
   };
 
   render() {
+    let gradient = this.getGradient();
+    // console.log(gradient.background);
     return (
-      <div style={this.getGradient()} className="gradientBackground">
+      <div style={gradient} className="gradientBackground">
         <div
           style={{
             opacity: this.state.uiOpacity,
@@ -249,7 +259,7 @@ class GradientPicker extends Component {
           {this.colorSliders()}
         </div>
         <div id="imageSave" style={{ display: 'none' }}></div>
-        <input id="css" defaultValue={this.getGradient().background}></input>
+        <input id="css" onChange={() => {}} value={gradient.background}></input>
       </div>
     );
   }
