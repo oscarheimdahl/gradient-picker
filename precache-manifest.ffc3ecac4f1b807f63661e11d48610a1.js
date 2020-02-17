@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "67df9b95f674ae8ee1655caaecf6af1e",
+    "revision": "f8b61fa0f4ca9d2a6eb63b1e49dd3583",
     "url": "/gradient-picker/index.html"
   },
   {
-    "revision": "140070728f7d385734e3",
+    "revision": "554736bdf629d17ac17d",
     "url": "/gradient-picker/static/css/main.f1730144.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/gradient-picker/static/js/2.b0762d8b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "140070728f7d385734e3",
-    "url": "/gradient-picker/static/js/main.f7fddd6b.chunk.js"
+    "revision": "554736bdf629d17ac17d",
+    "url": "/gradient-picker/static/js/main.c5b9817b.chunk.js"
   },
   {
     "revision": "d5feaaaf0917c23558ae",
