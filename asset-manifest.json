@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/gradient-picker/static/css/main.f1730144.chunk.css",
+    "main.js": "/gradient-picker/static/js/main.f7fddd6b.chunk.js",
+    "main.js.map": "/gradient-picker/static/js/main.f7fddd6b.chunk.js.map",
+    "runtime-main.js": "/gradient-picker/static/js/runtime-main.cdeda3e1.js",
+    "runtime-main.js.map": "/gradient-picker/static/js/runtime-main.cdeda3e1.js.map",
+    "static/js/2.b0762d8b.chunk.js": "/gradient-picker/static/js/2.b0762d8b.chunk.js",
+    "static/js/2.b0762d8b.chunk.js.map": "/gradient-picker/static/js/2.b0762d8b.chunk.js.map",
+    "index.html": "/gradient-picker/index.html",
+    "precache-manifest.e0947bdf83d31472d4093efd2873457c.js": "/gradient-picker/precache-manifest.e0947bdf83d31472d4093efd2873457c.js",
+    "service-worker.js": "/gradient-picker/service-worker.js",
+    "static/css/main.f1730144.chunk.css.map": "/gradient-picker/static/css/main.f1730144.chunk.css.map",
+    "static/js/2.b0762d8b.chunk.js.LICENSE.txt": "/gradient-picker/static/js/2.b0762d8b.chunk.js.LICENSE.txt",
+    "static/media/hide.png": "/gradient-picker/static/media/hide.19d98df8.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cdeda3e1.js",
+    "static/js/2.b0762d8b.chunk.js",
+    "static/css/main.f1730144.chunk.css",
+    "static/js/main.f7fddd6b.chunk.js"
+  ]
+}
