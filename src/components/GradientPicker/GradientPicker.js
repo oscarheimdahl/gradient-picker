@@ -82,7 +82,7 @@ class GradientPicker extends Component {
     // let value = event.target.value;
     let colors = this.state.colors;
     colors[index][color] = value;
-    this.setState({ colors });
+    this.setState({ colors: colors, initColors: colors });
   };
 
   updateRotation = event => {
