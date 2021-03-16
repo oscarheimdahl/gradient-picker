@@ -250,10 +250,10 @@ class GradientPicker extends Component {
           }}
         >
           <div className='buttons'>
+            {this.opacityToggle()}
             {this.saveButton()}
             {this.cssButton()}
             {this.randomizeButton()}
-            {this.opacityToggle()}
           </div>
           {this.colorSliders()}
         </div>
