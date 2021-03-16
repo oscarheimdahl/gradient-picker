@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/gradient-picker/static/css/main.f1730144.chunk.css",
-    "main.js": "/gradient-picker/static/js/main.c5b9817b.chunk.js",
-    "main.js.map": "/gradient-picker/static/js/main.c5b9817b.chunk.js.map",
+    "main.css": "/gradient-picker/static/css/main.5ea76ac9.chunk.css",
+    "main.js": "/gradient-picker/static/js/main.4b82d6f0.chunk.js",
+    "main.js.map": "/gradient-picker/static/js/main.4b82d6f0.chunk.js.map",
     "runtime-main.js": "/gradient-picker/static/js/runtime-main.cdeda3e1.js",
     "runtime-main.js.map": "/gradient-picker/static/js/runtime-main.cdeda3e1.js.map",
     "static/js/2.b0762d8b.chunk.js": "/gradient-picker/static/js/2.b0762d8b.chunk.js",
     "static/js/2.b0762d8b.chunk.js.map": "/gradient-picker/static/js/2.b0762d8b.chunk.js.map",
     "index.html": "/gradient-picker/index.html",
-    "precache-manifest.ffc3ecac4f1b807f63661e11d48610a1.js": "/gradient-picker/precache-manifest.ffc3ecac4f1b807f63661e11d48610a1.js",
+    "precache-manifest.83b781b4cea31679005b75bc9a3b3e73.js": "/gradient-picker/precache-manifest.83b781b4cea31679005b75bc9a3b3e73.js",
     "service-worker.js": "/gradient-picker/service-worker.js",
-    "static/css/main.f1730144.chunk.css.map": "/gradient-picker/static/css/main.f1730144.chunk.css.map",
+    "static/css/main.5ea76ac9.chunk.css.map": "/gradient-picker/static/css/main.5ea76ac9.chunk.css.map",
     "static/js/2.b0762d8b.chunk.js.LICENSE.txt": "/gradient-picker/static/js/2.b0762d8b.chunk.js.LICENSE.txt",
     "static/media/hide.png": "/gradient-picker/static/media/hide.19d98df8.png"
   },
   "entrypoints": [
     "static/js/runtime-main.cdeda3e1.js",
     "static/js/2.b0762d8b.chunk.js",
-    "static/css/main.f1730144.chunk.css",
-    "static/js/main.c5b9817b.chunk.js"
+    "static/css/main.5ea76ac9.chunk.css",
+    "static/js/main.4b82d6f0.chunk.js"
   ]
 }
