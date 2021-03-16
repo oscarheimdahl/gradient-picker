@@ -23,24 +23,27 @@
 
 .roundButton {
   cursor: pointer;
-  width: 60px;
-  height: 60px;
-  border-radius: 100px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   color: black;
-  text-align: center;
-  font-size: 1.2em;
-  /* font-weight: bold; */
+  font-size: 0.6rem;
   border: none;
   outline: none;
   background: #ffffff;
   box-shadow: 0 3px 5px #44444477;
-
-  top: 20px;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  margin-bottom: 10px;
+  transition: transform 0.2s;
 }
 
 .buttons {
   padding: 20px;
-  height: 300px;
+  /* height: 300px; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -57,16 +60,16 @@
 }
 
 button > img {
-  position: relative;
+  /* position: relative; */
   width: 50%;
-  top: 25%;
-  left: 25%;
-  display: block;
+  /* top: 25%; */
+  /* left: 25%; */
+  /* display: block; */
   /* opacity: 0.8; */
 }
 
 .randomizeButton > img {
-  opacity: 1;
+  /* opacity: 1; */
 }
 
 .gradientBackground {

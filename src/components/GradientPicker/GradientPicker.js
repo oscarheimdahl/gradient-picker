@@ -10,48 +10,48 @@ import { withStyles } from '@material-ui/core/styles';
 const RedSlider = withStyles({
   root: {
     color: '#fff',
-    height: 8
+    height: 8,
   },
   thumb: {
-    color: ' #bb0000'
-  }
+    color: ' #bb0000',
+  },
 })(Slider);
 
 const GreenSlider = withStyles({
   root: {
     color: '#fff',
-    height: 8
+    height: 8,
   },
   thumb: {
-    color: ' #00bb00'
-  }
+    color: ' #00bb00',
+  },
 })(Slider);
 
 const BlueSlider = withStyles({
   root: {
     color: '#fff',
-    height: 8
+    height: 8,
   },
   thumb: {
-    color: ' #0000bb'
-  }
+    color: ' #0000bb',
+  },
 })(Slider);
 
 class GradientPicker extends Component {
   state = {
     colors: [
       { r: 0, g: 0, b: 0 },
-      { r: 0, g: 0, b: 0 }
+      { r: 0, g: 0, b: 0 },
     ],
     initColors: [
       { r: 0, g: 0, b: 0 },
-      { r: 0, g: 0, b: 0 }
+      { r: 0, g: 0, b: 0 },
     ],
     copiedOpacity: 0,
     rotation: 120,
     uiOpacity: 1,
     randomizeButtonColor: 'white',
-    gradientImage: null
+    gradientImage: null,
   };
 
   constructor(props) {
@@ -62,14 +62,14 @@ class GradientPicker extends Component {
   componentDidMount() {
     let colors = [
       { r: randomInt(255), g: randomInt(255), b: randomInt(255) },
-      { r: randomInt(255), g: randomInt(255), b: randomInt(255) }
+      { r: randomInt(255), g: randomInt(255), b: randomInt(255) },
     ];
     this.setState({ colors: colors, initColors: colors });
   }
 
   getGradient = () => {
     let colors = '';
-    this.state.colors.forEach(color => {
+    this.state.colors.forEach((color) => {
       colors += 'rgb(' + color.r + ', ' + color.g + ', ' + color.b + '), ';
     });
     colors = colors.substring(0, colors.length - 2);
@@ -89,7 +89,7 @@ class GradientPicker extends Component {
     this.setState({ colors: colors, initColors: colors });
   };
 
-  updateRotation = event => {
+  updateRotation = (event) => {
     let rotation = event.target.value;
     this.setState({ rotation });
   };
@@ -107,7 +107,7 @@ class GradientPicker extends Component {
             onChange={(_, newValue) => {
               this.updateColor(index, colorLetter, newValue);
             }}
-            aria-labelledby="continuous-slider"
+            aria-labelledby='continuous-slider'
           />
         );
       case 'g':
@@ -119,7 +119,7 @@ class GradientPicker extends Component {
             onChange={(_, newValue) => {
               this.updateColor(index, colorLetter, newValue);
             }}
-            aria-labelledby="continuous-slider"
+            aria-labelledby='continuous-slider'
           />
         );
       default:
@@ -131,15 +131,15 @@ class GradientPicker extends Component {
             onChange={(_, newValue) => {
               this.updateColor(index, colorLetter, newValue);
             }}
-            aria-labelledby="continuous-slider"
+            aria-labelledby='continuous-slider'
           />
         );
     }
   };
 
-  getSliderBlock = index => {
+  getSliderBlock = (index) => {
     return (
-      <div key={index} className="sliderBlock">
+      <div key={index} className='sliderBlock'>
         {this.getColorSlider(index, 'r')}
         {this.getColorSlider(index, 'g')}
         {this.getColorSlider(index, 'b')}
@@ -149,7 +149,7 @@ class GradientPicker extends Component {
 
   colorSliders = () => {
     return (
-      <div className="slidersBlockContainer">
+      <div className='slidersBlockContainer'>
         {this.state.colors.map((color, index) => {
           return this.getSliderBlock(index);
         })}
@@ -164,7 +164,7 @@ class GradientPicker extends Component {
         onMouseEnter={() => this.setState({ uiOpacity: 0 })}
         onMouseLeave={() => this.setState({ uiOpacity: 1 })}
       >
-        <img src={hide} alt="hide"></img>
+        <img src={hide} alt='hide'></img>
       </button>
     );
   };
@@ -177,7 +177,7 @@ class GradientPicker extends Component {
           this.setState({ uiOpacity: 0 });
           setTimeout(() => this.setState({ uiOpacity: 1 }), 150);
           setTimeout(() => {
-            html2canvas(document.body).then(function(canvas) {
+            html2canvas(document.body).then(function (canvas) {
               canvas.id = 'canvas';
               document.getElementById('imageSave').appendChild(canvas);
               var link = document.createElement('a');
@@ -188,8 +188,7 @@ class GradientPicker extends Component {
           }, 100);
         }}
       >
-        {' '}
-        <img src={save} alt="hide"></img>
+        <img src={save} alt='hide'></img>
       </button>
     );
   };
@@ -202,16 +201,16 @@ class GradientPicker extends Component {
         onClick={() => {
           let allColors = [
             { r: randomInt(255), g: randomInt(255), b: randomInt(255) },
-            { r: randomInt(255), g: randomInt(255), b: randomInt(255) }
+            { r: randomInt(255), g: randomInt(255), b: randomInt(255) },
           ];
           this.setState({
-            allColors
+            allColors,
           });
           this.updateColor(null, null, null, allColors);
         }}
       >
         {' '}
-        <img src={random} alt="randomize"></img>
+        <img src={random} alt='randomize'></img>
       </button>
     );
   };
@@ -220,9 +219,12 @@ class GradientPicker extends Component {
     return (
       <div>
         <button
+          style={{
+            transform: `scale(${this.state.copiedOpacity ? 0.9 : 1})`,
+          }}
           onClick={() => {
             this.setState({ copiedOpacity: 1 });
-            setTimeout(() => this.setState({ copiedOpacity: 0 }), 500);
+            setTimeout(() => this.setState({ copiedOpacity: 0 }), 200);
             let copyText = document.getElementById('css');
             copyText.select();
             copyText.setSelectionRange(0, 99999);
@@ -232,9 +234,6 @@ class GradientPicker extends Component {
         >
           CSS
         </button>
-        <div className="copied" style={{ opacity: this.state.copiedOpacity }}>
-          Copied!
-        </div>
       </div>
     );
   };
@@ -243,14 +242,14 @@ class GradientPicker extends Component {
     let gradient = this.getGradient();
     // console.log(gradient.background);
     return (
-      <div style={gradient} className="gradientBackground">
+      <div style={gradient} className='gradientBackground'>
         <div
           style={{
             opacity: this.state.uiOpacity,
-            transitionDuration: '300ms'
+            transitionDuration: '300ms',
           }}
         >
-          <div className="buttons">
+          <div className='buttons'>
             {this.saveButton()}
             {this.cssButton()}
             {this.randomizeButton()}
@@ -258,8 +257,8 @@ class GradientPicker extends Component {
           </div>
           {this.colorSliders()}
         </div>
-        <div id="imageSave" style={{ display: 'none' }}></div>
-        <input id="css" onChange={() => {}} value={gradient.background}></input>
+        <div id='imageSave' style={{ display: 'none' }}></div>
+        <input id='css' onChange={() => {}} value={gradient.background}></input>
       </div>
     );
   }
