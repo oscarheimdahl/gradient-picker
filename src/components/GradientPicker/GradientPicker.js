@@ -37,6 +37,16 @@ const BlueSlider = withStyles({
   },
 })(Slider);
 
+const BlackSlider = withStyles({
+  root: {
+    color: '#fff',
+    height: 8,
+  },
+  thumb: {
+    color: ' #fff',
+  },
+})(Slider);
+
 class GradientPicker extends Component {
   state = {
     colors: [
@@ -87,11 +97,6 @@ class GradientPicker extends Component {
     let colors = this.state.colors;
     colors[index][color] = value;
     this.setState({ colors: colors, initColors: colors });
-  };
-
-  updateRotation = (event) => {
-    let rotation = event.target.value;
-    this.setState({ rotation });
   };
 
   handleSliderChange = () => {};
@@ -238,6 +243,29 @@ class GradientPicker extends Component {
     );
   };
 
+  updateRotation = (rotation) => {
+    this.setState({ rotation });
+  };
+
+  rotateButton = () => {
+    return (
+      <BlackSlider
+        style={{
+          height: '100px',
+          marginTop: '10px',
+        }}
+        min={0}
+        defaultValue={this.state.rotation}
+        orientation='vertical'
+        max={360}
+        onChange={(_, newValue) => {
+          this.updateRotation(newValue);
+        }}
+        aria-labelledby='continuous-slider'
+      />
+    );
+  };
+
   render() {
     let gradient = this.getGradient();
     // console.log(gradient.background);
@@ -254,6 +282,7 @@ class GradientPicker extends Component {
             {this.saveButton()}
             {this.cssButton()}
             {this.randomizeButton()}
+            {this.rotateButton()}
           </div>
           {this.colorSliders()}
         </div>
